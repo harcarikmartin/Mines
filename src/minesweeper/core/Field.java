@@ -198,11 +198,13 @@ public class Field {
 	 void openAdjacentTiles(int row, int column) {
 	        for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
 	            int actRow = row + rowOffset;
-	            if (actRow >= 0 && actRow < rowCount) {
+	            if (actRow >= 0 && actRow < rowCount && actRow != row) {
 	                for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
 	                    int actColumn = column + columnOffset;
-	                    if (actColumn >= 0 && actColumn < columnCount) {
-	                        if (tiles[actRow][actColumn] instanceof Clue && ((Clue)tiles[actRow][actColumn]).getValue() == 0) {
+	                    if (actColumn >= 0 && actColumn < columnCount && actColumn != column) {
+	                    	Tile tile = tiles[actRow][actColumn];
+	                        if (tile instanceof Clue && ((Clue)tile).getValue() == 0 && tile.getState().equals(State.CLOSED)) {
+	                            tile.setState(State.OPEN);
 	                            openAdjacentTiles(actRow, actColumn);
 	                        }
 	                    }
