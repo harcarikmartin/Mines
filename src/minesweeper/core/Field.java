@@ -146,7 +146,7 @@ public class Field {
     	return count;
     }
     
-    private boolean isSolved() {
+    public boolean isSolved() {
         if(getRowCount() * getColumnCount() - getNumberOf(Tile.State.OPEN) == getMineCount()) {
         	return true;
         } else {

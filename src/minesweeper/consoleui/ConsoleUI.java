@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import minesweeper.UserInterface;
 import minesweeper.core.Clue;
 import minesweeper.core.Field;
+import minesweeper.core.GameState;
 import minesweeper.core.Mine;
 import minesweeper.core.Tile;
 import minesweeper.core.Tile.State;
@@ -21,7 +22,7 @@ public class ConsoleUI implements UserInterface {
     /** Playing field. */
     private Field field;
     
-    private static Pattern PATTERN = Pattern.compile("([MOX])([A-I])?([0-8])?");
+    private static Pattern PATTERN = Pattern.compile("(X)|(([MO])([A-I])([0-8]))");
     
     /** Input reader. */
     private BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
@@ -72,13 +73,13 @@ public class ConsoleUI implements UserInterface {
 				if(field.getTile(x,y) instanceof Mine && field.getTile(x,y).getState().equals(State.OPEN)) {
 					System.out.print(" X");
 				}
-				if(field.getTile(x,y) instanceof Clue && field.getTile(x, y).getState().equals(State.OPEN)) {
-					System.out.print(" C");
+				else if(field.getTile(x,y) instanceof Clue && field.getTile(x, y).getState().equals(State.OPEN)) {
+					System.out.print(" " + ((Clue)field.getTile(x,y)).getValue());
 				}
-				if(field.getTile(x,y).getState().equals(State.MARKED)) {
+				else if(field.getTile(x,y).getState().equals(State.MARKED)) {
 					System.out.print(" M");
 				}
-				if(field.getTile(x,y).getState().equals(State.CLOSED)) {
+				else if(field.getTile(x,y).getState().equals(State.CLOSED)) {
 					System.out.print(" -");
 				}
 			}
@@ -98,44 +99,43 @@ public class ConsoleUI implements UserInterface {
     	Matcher matcher = PATTERN.matcher(input);
     	
     	if(matcher.matches()) {
-    		String typ = matcher.group(1);
-    		String rowString = matcher.group(2);
-    		String columnString = matcher.group(3);
-    		char rowChar = 'A';
-    		int row = 0;
-    		int column = Integer.parseInt(columnString);
-    		
-    		for (int i = 0; i < field.getRowCount(); i++) {
-				if(rowString.charAt(0) == rowChar) {
-					row = i;
-				}
-				else {
-					rowChar++;
-				}
+    		String exit = matcher.group(1);
+    		String commandTyp = matcher.group(3);
+    		String rowString = matcher.group(4);
+    		String columnString = matcher.group(5);
+   
+    		for (int i = 0; i <= matcher.groupCount(); i++) {
+				System.out.println(matcher.group(i));
 			}
-    		if(typ == "X") {
-    			//quit game
+    		if(exit == null) {
+    			exit = "";
     		}
-    		else if(typ == "O") {
-    			if(row < field.getRowCount() && column < field.getColumnCount()) {
-    				field.openTile(row,column);
-//    				update();
-    			}
-    			else {
-    				System.out.println("Wrong command");
-    				processInput();
-    			}	
-    		}
-    		else if(typ == "M") {
-    			if(row < field.getRowCount() && column < field.getColumnCount()) {
-    				field.markTile(row,column);
-//    				update();
-    			}
-    			else {
-    				System.out.println("Wrong command");
-//    				update();
-    			}	
-    		}
-    	}	
+    		if(exit.equals("X")) {
+    			System.exit(0);
+    			
+    		} else if(commandTyp.equals("O") || commandTyp.equals("M")){
+	    		char rowChar = rowString.charAt(0);
+	    		int row = 0;
+	    		int column = Integer.parseInt(columnString);
+	    		
+	    		for (char i = 'A'; i < rowChar; i++) {
+					row++;
+				}
+	    		if(commandTyp.equals("O")) {
+	    			field.openTile(row,column);
+	    		}
+	    		else if(commandTyp.equals("M")) {
+	    			field.markTile(row,column);
+	    		}
+    		
+	    	}	
+    	}
+    	else {
+    		System.out.println("Wrong command, does not match desired pattern");
+    	}
+//    	if(field.isSolved()) {
+//    		field.setState(GameState.SOLVED);
+//    		System.out.println("You WON");
+//    	}
     }
 }
