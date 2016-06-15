@@ -76,6 +76,9 @@ public class Field {
                 setState(GameState.FAILED);
                 return;
             }
+            if(tile instanceof Clue && ((Clue)tile).getValue() == 0) {
+            	openAdjacentTiles(row, column);
+            }
 
             if (isSolved()) {
                 setState(GameState.SOLVED);
@@ -192,5 +195,29 @@ public class Field {
 		return tiles[row][column];
 	}
 	
+	 void openAdjacentTiles(int row, int column) {
+	        for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
+	            int actRow = row + rowOffset;
+	            if (actRow >= 0 && actRow < rowCount) {
+	                for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
+	                    int actColumn = column + columnOffset;
+	                    if (actColumn >= 0 && actColumn < columnCount) {
+	                        if (tiles[actRow][actColumn] instanceof Clue && ((Clue)tiles[actRow][actColumn]).getValue() == 0) {
+	                            openAdjacentTiles(actRow, actColumn);
+	                        }
+	                    }
+	                }
+	            }
+	        }
+		 
+		 
+		 
+//		 Tile tile = tiles[row][column];
+//		 if(tile instanceof Clue) {
+//		 	if(((Clue)tile).getValue() == 0) {
+//				
+//			 }
+//		 }
+	 }
 	
 }

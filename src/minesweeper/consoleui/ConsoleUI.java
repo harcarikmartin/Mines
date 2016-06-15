@@ -47,6 +47,14 @@ public class ConsoleUI implements UserInterface {
         this.field = field;
         update();
         do {
+        	if(field.getState().equals(GameState.SOLVED)) {
+        		System.out.println("You WON");
+        		System.exit(0);
+        	}
+        	if(field.getState().equals(GameState.FAILED)) {
+        		System.out.println("You LOST");
+        		System.exit(0);
+        	}
             update();
      	    processInput();
         } while(true);
