@@ -49,7 +49,7 @@ public class ConsoleUI implements UserInterface {
         do {
             update();
             if(field.getState().equals(GameState.SOLVED)) {
-        		System.out.println("You WON");
+            	System.out.println("You WON");
         		System.exit(0);
         	}
         	if(field.getState().equals(GameState.FAILED)) {
@@ -139,7 +139,7 @@ public class ConsoleUI implements UserInterface {
 	    	}	
     	}
     	else {
-    		System.out.println("Wrong command, does not match desired pattern");
+    		System.out.println("Wrong command, does not match desired pattern, try again");
     	}
     }
 }
