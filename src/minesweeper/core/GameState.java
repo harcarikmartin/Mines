@@ -1,5 +1,4 @@
 package minesweeper.core;
-
 /**
  * Game state.
  */
