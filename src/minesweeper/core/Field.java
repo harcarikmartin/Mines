@@ -58,7 +58,6 @@ public class Field {
         this.mineCount = mineCount;
         tiles = new Tile[rowCount][columnCount];
 
-        //generate the field content
         generate();
     }
 
@@ -198,12 +197,14 @@ public class Field {
 	 void openAdjacentTiles(int row, int column) {
 	        for (int rowOffset = -1; rowOffset <= 1; rowOffset++) {
 	            int actRow = row + rowOffset;
-	            if (actRow >= 0 && actRow < rowCount && actRow != row) {
+	            if (actRow >= 0 && actRow < rowCount) {
 	                for (int columnOffset = -1; columnOffset <= 1; columnOffset++) {
 	                    int actColumn = column + columnOffset;
-	                    if (actColumn >= 0 && actColumn < columnCount && actColumn != column) {
+	                    if (actColumn >= 0 && actColumn < columnCount) {
+	                    	Tile orig = tiles[row][column];
 	                    	Tile tile = tiles[actRow][actColumn];
-	                        if (tile instanceof Clue && ((Clue)tile).getValue() == 0 && tile.getState().equals(State.CLOSED)) {
+	                        if (orig instanceof Clue && ((Clue)orig).getValue() == 0 && tile instanceof Clue && tile.getState().equals(State.CLOSED) || 
+	                        		tile instanceof Clue && ((Clue)tile).getValue() == 0 && tile.getState().equals(State.CLOSED)) {
 	                            tile.setState(State.OPEN);
 	                            openAdjacentTiles(actRow, actColumn);
 	                        }
@@ -211,15 +212,6 @@ public class Field {
 	                }
 	            }
 	        }
-		 
-		 
-		 
-//		 Tile tile = tiles[row][column];
-//		 if(tile instanceof Clue) {
-//		 	if(((Clue)tile).getValue() == 0) {
-//				
-//			 }
-//		 }
 	 }
 	
 }

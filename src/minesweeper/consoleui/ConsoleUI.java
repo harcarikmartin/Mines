@@ -45,9 +45,10 @@ public class ConsoleUI implements UserInterface {
     @Override
 	public void newGameStarted(Field field) {
         this.field = field;
-        update();
+        
         do {
-        	if(field.getState().equals(GameState.SOLVED)) {
+            update();
+            if(field.getState().equals(GameState.SOLVED)) {
         		System.out.println("You WON");
         		System.exit(0);
         	}
@@ -55,8 +56,7 @@ public class ConsoleUI implements UserInterface {
         		System.out.println("You LOST");
         		System.exit(0);
         	}
-            update();
-     	    processInput();
+            processInput();
         } while(true);
     }
     
@@ -141,9 +141,5 @@ public class ConsoleUI implements UserInterface {
     	else {
     		System.out.println("Wrong command, does not match desired pattern");
     	}
-//    	if(field.isSolved()) {
-//    		field.setState(GameState.SOLVED);
-//    		System.out.println("You WON");
-//    	}
     }
 }
