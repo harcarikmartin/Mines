@@ -1,10 +1,10 @@
-package minesweeper.coreTest;
+package minesweeperTest;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class MineTest {
+public class UserInterfaceTest {
 
 	@Test
 	public void test() {
