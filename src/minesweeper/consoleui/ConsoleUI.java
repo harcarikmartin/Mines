@@ -17,7 +17,7 @@ import minesweeper.core.Tile.State;
  * Console user interface.
  */
 public class ConsoleUI implements UserInterface {
-	private static Pattern PATTERN = Pattern.compile("(X)|(([MO])([A-I])([0-8]))");
+	private static Pattern PATTERN = Pattern.compile("(X|x)|(([MO|mo])([A-I|a-i])([0-8]))");
 
 	/** Playing field. */
 	private Field field;
@@ -105,20 +105,20 @@ public class ConsoleUI implements UserInterface {
 			if (exit == null) {
 				exit = "";
 			}
-			if (exit.equals("X")) {
+			if (exit.toLowerCase().equals("x")) {
 				System.exit(0);
 
-			} else if (commandTyp.equals("O") || commandTyp.equals("M")) {
+			} else if (commandTyp.toLowerCase().equals("o") || commandTyp.toLowerCase().equals("m")) {
 				char rowChar = rowString.charAt(0);
 				int row = 0;
 				int column = Integer.parseInt(columnString);
 
-				for (char i = 'A'; i < rowChar; i++) {
+				for (char i = 'a'; i < rowChar; i++) {
 					row++;
 				}
-				if (commandTyp.equals("O")) {
+				if (commandTyp.toLowerCase().equals("o")) {
 					field.openTile(row, column);
-				} else if (commandTyp.equals("M")) {
+				} else if (commandTyp.toLowerCase().equals("m")) {
 					field.markTile(row, column);
 				}
 
