@@ -31,3 +31,6 @@ public class Minesweeper {
 		new Minesweeper();
 	}
 }
+
+
+// Test na vymazanie branch
