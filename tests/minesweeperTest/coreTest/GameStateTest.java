@@ -1,10 +1,10 @@
-package minesweeper.coreTest;
+package minesweeperTest.coreTest;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TileTest {
+public class GameStateTest {
 
 	@Test
 	public void test() {
