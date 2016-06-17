@@ -4,6 +4,7 @@ import java.util.Random;
 
 import minesweeper.core.Tile.State;
 
+
 /**
  * Field represents playing field and game logic.
  */
@@ -233,5 +234,9 @@ public class Field {
 				return;
 			}
 		}
+	}
+	
+	public int getRemainingMineCount() {
+		return getMineCount() - getNumberOf(State.MARKED);
 	}
 }

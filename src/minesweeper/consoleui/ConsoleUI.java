@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import minesweeper.Minesweeper;
 import minesweeper.UserInterface;
 import minesweeper.core.Clue;
 import minesweeper.core.Field;
@@ -81,8 +82,10 @@ public class ConsoleUI implements UserInterface {
 			System.out.println();
 			row++;
 		}
+		System.out.println("Time playing: " + Minesweeper.getInstance().getPlayingSeconds());
+		System.out.println("Mines remaining: " + field.getRemainingMineCount());
 	}
-	
+
 	/**
 	 * Processes user input. Reads line from console and does the action on a
 	 * playing field according to input string.
@@ -90,10 +93,32 @@ public class ConsoleUI implements UserInterface {
 
 	private void processInput() {
 		System.out.printf("Please enter your selection <X> EXIT, <MA1> MARK, <OB4> OPEN : ");
-		String input = readLine();
+		String input1 = readLine();
+		
+		try {
+			handleInput(input1);
+		} catch (WrongFormatException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Reads line of text from the reader.
+	 * 
+	 * @return line as a string
+	 */
+	private String readLine() {
+		try {
+			return input.readLine();
+		} catch (IOException e) {
+			return null;
+		}
+	}
+	
+	void handleInput(String input) throws WrongFormatException {
 		Matcher matcher = PATTERN.matcher(input);
-
-		if (matcher.matches()) {
+		
+		if(matcher.matches()) {
 			String exit = matcher.group(1);
 			String commandTyp = matcher.group(3);
 			String rowString = matcher.group(4);
@@ -121,25 +146,10 @@ public class ConsoleUI implements UserInterface {
 				} else if (commandTyp.toLowerCase().equals("m")) {
 					field.markTile(row, column);
 				}
-
 			}
-		} else {
-			System.out.println("Wrong command, does not match desired pattern, try again");
+		} 
+		else {
+			throw new WrongFormatException("Wrong format of input, try again.");
 		}
 	}
-	
-	/**
-	 * Reads line of text from the reader.
-	 * 
-	 * @return line as a string
-	 */
-	private String readLine() {
-		try {
-			return input.readLine();
-		} catch (IOException e) {
-			return null;
-		}
-	}
-
-	
 }
