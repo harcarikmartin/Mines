@@ -17,7 +17,7 @@ public class BestTimes implements Iterable<BestTimes.PlayerTime> {
      * Returns an iterator over a set of  best times.
      * @return an iterator
      */
-    public Iterator<PlayerTime> iterator() {
+    public Iterator<BestTimes.PlayerTime> iterator() {
         return playerTimes.iterator();
     }
 

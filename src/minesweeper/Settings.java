@@ -3,12 +3,14 @@ package minesweeper;
 import java.io.Serializable;
 
 public class Settings implements Serializable{
-	private final int rowCount, columnCount, mineCount;
+	private final int rowCount; 
+	private final int columnCount; 
+	private final int mineCount;
 
 	public static final Settings BEGINNER = new Settings(9,9,10);
 	public static final Settings INTERMEDIATE = new Settings(16,16,40);
 	public static final Settings EXPERT = new Settings(16,30,99);
-	public static final String SETTING_FILE = System.getProperty("üser.home") + System.getProperty("file.separator") + "minesweeper.settings";
+	public static final String SETTING_FILE = System.getProperty("user.home") + System.getProperty("file.separator") + "minesweeper.settings";
 	
 	public Settings(int rowCount, int columnCount, int mineCount) {
 		this.rowCount = rowCount;
@@ -16,15 +18,15 @@ public class Settings implements Serializable{
 		this.mineCount = mineCount;
 	}
 
-	private int getMineCount() {
+	public int getMineCount() {
 		return mineCount;
 	}
 
-	private int getColumnCount() {
+	public int getColumnCount() {
 		return columnCount;
 	}
 	
-	private int getRowCount() {
+	public int getRowCount() {
 		return rowCount;
 	}
 	
@@ -33,9 +35,17 @@ public class Settings implements Serializable{
 //			ObjectOutputStream
 //	}
 	
-//	public void load() {
+//	public static Settings load() {
 //		FileInputStream
 //			ObjectInputStream
 //	}
+	
+	public int hashCode() {
+		return 0;
+	}
+	
+	public boolean equals(Object o) {
+		return false;
+	}
 	
 }

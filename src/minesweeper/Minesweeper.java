@@ -59,6 +59,3 @@ public class Minesweeper {
 //		this.setting.save();
 	}
 }
-
-
-// Test na vymazanie branch
