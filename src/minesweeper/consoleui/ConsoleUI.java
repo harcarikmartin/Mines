@@ -124,9 +124,9 @@ public class ConsoleUI implements UserInterface {
 			String rowString = matcher.group(4);
 			String columnString = matcher.group(5);
 
-			for (int i = 0; i <= matcher.groupCount(); i++) {
-				System.out.println(matcher.group(i));
-			}
+//			for (int i = 0; i <= matcher.groupCount(); i++) {
+//				System.out.println(matcher.group(i));
+//			}
 			if (exit == null) {
 				exit = "";
 			}

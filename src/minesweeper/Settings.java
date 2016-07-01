@@ -1,6 +1,13 @@
 package minesweeper;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 public class Settings implements Serializable{
 	private final int rowCount; 
@@ -30,22 +37,52 @@ public class Settings implements Serializable{
 		return rowCount;
 	}
 	
-//	public void save() {
-//		FileOutputStream
-//			ObjectOutputStream
-//	}
+	public void save() {
+		FileOutputStream out;
+		try {
+			out = new FileOutputStream(SETTING_FILE);
+			ObjectOutputStream s;
+			try {
+				s = new ObjectOutputStream(out);
+				s.writeObject(BEGINNER);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+        
+	}
 	
-//	public static Settings load() {
-//		FileInputStream
-//			ObjectInputStream
-//	}
+	public static Settings load() {
+		FileInputStream in;
+		try {
+			in = new FileInputStream(SETTING_FILE);
+			ObjectInputStream s;
+			try {
+				s = new ObjectInputStream(in);
+				 try {
+					Settings setting =  (Settings) s.readObject();
+					return setting;
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
 	
 	public int hashCode() {
-		return 0;
+		return rowCount * columnCount * mineCount;
 	}
 	
 	public boolean equals(Object o) {
-		return false;
+		return o.hashCode() == this.hashCode();
 	}
 	
 }

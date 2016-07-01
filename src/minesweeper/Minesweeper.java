@@ -18,9 +18,10 @@ public class Minesweeper {
 	private Minesweeper() {
 		instance = this;
 		userInterface = new ConsoleUI();
-//		setting.load();
+		setSetting(Settings.BEGINNER);
+		setting = getSetting();
 
-		Field field = new Field(9, 9, 10);
+		Field field = new Field(setting.getRowCount(), setting.getColumnCount(), setting.getMineCount());
 		userInterface.newGameStarted(field);
 	}
 	
@@ -56,6 +57,6 @@ public class Minesweeper {
 
 	public void setSetting(Settings setting) {
 		this.setting = setting;
-//		this.setting.save();
+		this.setting.save();
 	}
 }
